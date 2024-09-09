@@ -27,3 +27,4 @@ node_modules
 !.env.vault
 
 git.sh
+test

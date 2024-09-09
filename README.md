@@ -87,6 +87,6 @@ next-tunnel -v
 Contributions are welcome! Please submit a pull request or open an issue if you have suggestions or find bugs.
 
 ## License 
-This project is licensed under the MIT License. See the [LICENSE]()  file for details.
+This project is licensed under the MIT License. See the [MIT LICENSE](LICENSE)  file for details.
 
 ---
