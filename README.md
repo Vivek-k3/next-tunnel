@@ -43,11 +43,29 @@ next-tunnel dev [options]
  
 - `-s, --subdomain <subdomain>`: Specify a custom subdomain for the tunnel.
 
+- `--secure`: Start the tunnel in secure mode 🔒.
+
+- `--lan`: Start the tunnel using Local Area Network Connection(i.e your internet router connected devices.) 🔌.
+
 Example:
 
 
 ```Copy code
 next-tunnel dev -p 4000 -s my-custom-subdomain
+```
+
+#### Secure Tunnel: 
+This will create a secure authenticated tunnel for your local Next.js app. You'll need to provide a password to access the tunnel which is shared along with url.
+
+```Copy code
+next-tunnel dev --secure
+```
+
+#### LAN Tunnel: 
+This will create a tunnel using your machines LocalIP and only accessible from your local network.
+
+```Copy code
+next-tunnel dev --lan   
 ```
 
 ### 2. Stopping the Tunnel 
