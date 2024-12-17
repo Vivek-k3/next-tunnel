@@ -206,3 +206,14 @@ export async function startLocalTunnelForNext(options: any) {
     nextProcess.kill();
   }
 }
+
+export async function getTunnelStatus() {
+  // Placeholder implementation for tunnel status
+  // This should be replaced with actual logic to retrieve tunnel status
+  return {
+    uptime: '1 hour',
+    connections: 5,
+    dataUsage: '10MB'
+  };
+}
+
