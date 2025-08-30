@@ -1,6 +1,6 @@
 {
   "name": "next-tunnel",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A local tunnel for your next-app",
   "keywords": [
     "nextjs",
@@ -36,6 +36,12 @@
       "default": "./bin/index.cjs"
     }
   },
+  "files": [
+    "bin",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
   "author": "vivek-k3",
   "license": "MIT",
   "devDependencies": {
