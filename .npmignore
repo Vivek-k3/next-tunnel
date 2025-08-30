@@ -31,3 +31,6 @@ turbo.json
 .flaskenv*
 !.env.project
 !.env.vault
+
+git.sh
+test/

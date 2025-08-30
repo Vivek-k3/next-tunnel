@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import { init } from './commands/init.js';
 import { dev } from './commands/dev.js';
 import { stop } from './commands/stop.js';
+import { start } from './commands/start.js';
 import { getPackageJson } from './lib/get-package-json.js';
 import { preCommandChecks } from './lib/pre-command-checks.js';
 const packageJson = getPackageJson();
@@ -16,6 +17,6 @@ const program = new Command()
 program.name('loader').action(async () => {
   await preCommandChecks();
 });
-program.addCommand(init).addCommand(dev).addCommand(stop);
+program.addCommand(init).addCommand(dev).addCommand(stop).addCommand(start);
 
 program.parse(process.argv);

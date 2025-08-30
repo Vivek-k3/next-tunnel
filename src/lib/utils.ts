@@ -206,3 +206,124 @@ export async function startLocalTunnelForNext(options: any) {
     nextProcess.kill();
   }
 }
+
+export async function startUntunTunnel(options: any) {
+  const port = options.port;
+  logger.info(chalk.blue.bold('Starting tunnel on port...'), chalk.green.bold(port));
+
+  if (typeof port !== 'number' || isNaN(port) || port < 0 || port >= 65536) {
+    throw new Error(chalk.red.bold('Port must be a valid number between 0 and 65535'));
+  }
+
+  const tunnelConfig = {
+    port,
+    subdomain: options.subdomain,
+  };
+
+  try {
+    tunnel = await startTunnel(tunnelConfig);
+    const url = (await tunnel?.getURL()) || '';
+
+    console.log(
+      boxen(`Local: http://localhost:${port}`, {
+        padding: 1,
+        borderColor: 'green',
+        title: 'Local URL',
+      }),
+    );
+    console.log(
+      boxen(`Tunnel: ${url}`, {
+        padding: 1,
+        borderColor: 'cyan',
+        title: 'Tunnel URL',
+      }),
+    );
+
+    qrcode.generate(url, { small: true }, (code) => {
+      console.log(chalk.yellow('\nQR Code for accessing the tunnel:'));
+      console.log(code);
+    });
+  } catch (error) {
+    console.error(chalk.red('Error starting tunnel:', error));
+    stopTunnel();
+  }
+}
+
+export async function startSecureTunnel(options: any) {
+  const port = options.port;
+  console.log(chalk.blue.bold('Starting secure tunnel on port...'), chalk.green.bold(port));
+
+  if (typeof port !== 'number' || isNaN(port) || port < 0 || port >= 65536) {
+    throw new Error(chalk.red.bold('Port must be a valid number between 0 and 65535'));
+  }
+
+  const tunnelConfig = {
+    port,
+    subdomain: options.subdomain,
+  };
+
+  try {
+    tunnel = await localtunnel(tunnelConfig);
+    const url = (await tunnel?.url) || '';
+
+    console.log(
+      boxen(`Local: http://localhost:${port}`, {
+        padding: 1,
+        borderColor: 'green',
+        title: 'Local URL',
+      }),
+    );
+    console.log(
+      boxen(`Secure Tunnel: ${url}`, {
+        padding: 1,
+        borderColor: 'cyan',
+        title: 'Tunnel URL',
+      }),
+    );
+
+    qrcode.generate(url, { small: true }, (code) => {
+      console.log(chalk.yellow('\nQR Code for accessing the tunnel:'));
+      console.log(code);
+    });
+  } catch (error) {
+    console.error(chalk.red('Error starting tunnel:', error));
+    stopTunnel();
+  }
+}
+
+export async function startLocalTunnel(options: any) {
+  const port = options.port;
+  const localIp = getLocalIpAddress();
+  console.log(chalk.blue.bold('Starting local tunnel on port...'), chalk.green.bold(port));
+  console.log(chalk.blue.bold('Local IP Address:'), chalk.green.bold(localIp));
+
+  if (typeof port !== 'number' || isNaN(port) || port < 0 || port >= 65536) {
+    throw new Error(chalk.red.bold('Port must be a valid number between 0 and 65535'));
+  }
+  try {
+    const url = `http://${localIp}:${port}`;
+
+    console.log(
+      boxen(`Local: http://localhost:${port}`, {
+        padding: 1,
+        borderColor: 'green',
+        title: 'Local URL',
+      }),
+    );
+    console.log(
+      boxen(`Local Tunnel: ${chalk.cyan(url)}`, {
+        padding: 1,
+        borderColor: 'cyan',
+        title: 'Tunnel URL via LocalConnection',
+      }),
+    );
+
+    qrcode.generate(url, { small: true }, (code) => {
+      console.log(chalk.yellow('\nQR Code for accessing the tunnel:'));
+      console.log(code);
+    });
+  } catch (error) {
+    console.error(chalk.red('Error starting tunnel:', error));
+    stopTunnel();
+  }
+}
